@@ -1,12 +1,13 @@
 #!/bin/bash
-# Intercepts matuwall awww calls
-# Passes to real awww AND runs pywal
+# awww-wrapper.sh — MASU Hyprland
+# Intercepts matuwall awww calls, passes to real awww,
+# then triggers the pywal color pipeline in the background.
 
 REAL_AWW=/usr/bin/awww
 WALLPAPER="${@: -1}"
 
-# Run real awww with original args
+# Pass all args to real awww first
 "$REAL_AWW" "$@"
 
-# Then run our color pipeline
-[ -f "$WALLPAPER" ] && bash ~/.config/hypr/scripts/wallpaper-colors.sh "$WALLPAPER" &
+# Trigger color pipeline only if last arg looks like a file path
+[[ -f "$WALLPAPER" ]] && bash ~/.config/hypr/scripts/wallpaper-colors.sh "$WALLPAPER" &
