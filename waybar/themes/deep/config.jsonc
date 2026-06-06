@@ -13,6 +13,7 @@
     "memory",
     "pulseaudio",
     "battery",
+    "tray",
     "custom/swaync"
   ],
 
