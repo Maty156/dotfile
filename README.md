@@ -95,13 +95,53 @@ Default configured for `LVDS-1` at `1366x768@60` — change settings in `hypr/hy
 monitor = LVDS-1, 1366x768@60, 0x0, 1
 ```
 
+## Scripts & Autostart
+
+Key helper scripts live in `hypr/scripts/` and are used by the autostart entries in `hypr/hyprland.conf`.
+
+- `hypr/scripts/wallpaper-colors.sh`: applies `wal -i <wallpaper>` and copies generated color files to component configs (Waybar, Wofi, Dunst, Wob, Hyprland), updates hyprlock background, and reloads affected services.
+- `hypr/scripts/wal-watcher.sh`: daemon that watches `awww` for wallpaper changes and runs the full pywal color pipeline automatically.
+- `hypr/scripts/awww-wrapper.sh`: wrapper used when setting wallpapers manually via `awww`.
+- `hypr/scripts/hyprlock_wall.sh` and `hypr/scripts/sddm-colors.sh`: helpers for lock/SDDM backgrounds.
+- `hypr/scripts/spotify-toggle.sh`: toggles the Spotify scratchpad used by the config.
+
+Autostart and useful bindings (see `hypr/hyprland.conf`):
+
+- `exec-once = uwsm app -- matuwall --daemon` — starts the matuwall daemon for wallpaper selection.
+- `exec-once = bash -c "sleep 1 && wal -R -q && bash ~/.config/hypr/scripts/wal-watcher.sh"` — restores the last wal palette and starts the watcher on login.
+- `bind = $mainMod, W, exec, matuwall --toggle` — quick keybinding to open/close matuwall.
+
+You can test the pipeline manually by running:
+
+```bash
+~/.config/hypr/scripts/wallpaper-colors.sh /path/to/wallpaper.jpg
+```
+
+Or start the watcher directly for live updates:
+
+```bash
+~/.config/hypr/scripts/wal-watcher.sh &
+```
+
 ## Screenshots
 
-Screenshots of the setup can be added to `assets/screenshots/` and referenced below. Add PNG or JPG files named clearly (e.g. `waybar.png`, `rofi.png`). Example links (add images to enable):
+Screenshots of the setup are included below (in `assets/screenshots/`). Click any image to open the file. Images are shown at a reduced width for readability.
 
-- [assets/screenshots/waybar.png](assets/screenshots/waybar.png)
-- [assets/screenshots/rofi.png](assets/screenshots/rofi.png)
-- [assets/screenshots/hypr.png](assets/screenshots/hypr.png)
+- **Notification / Waybar:**
+
+  <img src="assets/screenshots/screenshot-20260607-194530.png" alt="Notification bar" width="640" />
+
+- **Rofi launcher:**
+
+  <img src="assets/screenshots/screenshot-20260607-194538.png" alt="Rofi launcher" width="640" />
+
+- **Wallpaper chooser (Matuwall thumbnails):**
+
+  <img src="assets/screenshots/screenshot-20260607-194602.png" alt="Matuwall wallpaper chooser" width="640" />
+
+- **Wallpaper changer / picker:**
+
+  <img src="assets/screenshots/screenshot-20260607-194614.png" alt="Wallpaper changer" width="640" />
 
 How to add screenshots:
 
@@ -113,10 +153,3 @@ How to add screenshots:
 
 If you want to contribute adjustments or fixes, open a PR. Configs are opinionated; please test changes locally before proposing.
 
-## License
-
-Share as you like; add a LICENSE file if you want a specific license.
-
----
-
-If you'd like, I can add placeholder files in `assets/screenshots/` now, or you can upload screenshots and I will insert them into the README for you.
