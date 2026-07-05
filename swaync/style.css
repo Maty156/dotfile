@@ -1,72 +1,11 @@
-/* Use pywal's standard variables */
-@import "colors.css";
+/***
+ *    ┏┓┓ ┏┏┓┓┏┳┓┏┓
+ *    ┗┓┃┃┃┣┫┗┫┃┃┃ 
+ *    ┗┛┗┻┛┛┗┗┛┛┗┗┛
+ *                 
+ */
 
-* {
-    font-family: "SF Pro Display", "JetBrainsMono Nerd Font", system-ui, sans-serif;
-    font-size: 13px;
-    border: none;
-    transition: all 0.25s ease;
-}
 
-@media (prefers-reduced-motion: reduce) {
-    * {
-        transition: none !important;
-    }
-}
-
-.notification-row {
-    background: transparent;
-    border: none;
-    border-radius: 14px;
-    margin: 1px 0;
-    width: 100%;
-    box-shadow: none;
-}
-
-.notification {
-    background: var(--background);
-    color: var(--foreground);
-    border: 1px solid var(--color8);
-    box-shadow: none;
-    border-radius: 12px;
-    padding: 10px 14px;
-}
-
-.notification:hover,
-.notification:focus {
-    background: var(--background);
-    border-color: var(--color1);
-}
-
-.control-center {
-    background: var(--background);
-    border: 1px solid var(--color8);
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-}
-
-.title {
-    color: var(--foreground);
-    font-weight: 600;
-}
-
-.button {
-    background: var(--color8);
-    color: var(--foreground);
-    border-radius: 10px;
-    padding: 10px;
-    margin: 4px;
-}
-
-.button:hover {
-    background: var(--color1);
-    color: var(--background);
-}
-
-.toggle {
-    background: var(--color8);
-}
-
-.toggle:checked {
-    background: var(--color1);   /* or var(--color2) */
-}
+@import 'matugen/matugen-swaync.css';
+@import 'themes/matugen-nc/notifications.css';
+@import 'themes/matugen-nc/control-center.css';
