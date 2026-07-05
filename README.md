@@ -1,95 +1,119 @@
-# MASU .config
+# MASU dotfile
 
-Personal Hyprland desktop configuration with a pywal-driven color pipeline. Colors follow the wallpaper automatically across Waybar, Rofi, Swaync, Wofi, Dunst, Hyprlock, and related scripts.
+Personal Hyprland desktop configuration with a **matugen-driven color pipeline**. Colors follow the wallpaper automatically across Waybar, Rofi, Kitty, Hyprland, Hyprlock, and Swaync.
 
 **Quick facts**
 
 - **Hardware:** ThinkPad E531 · 1366×768 · Intel Ivy Bridge
 - **OS:** Arch Linux
-- **Window Manager:** Hyprland
+- **Window Manager:** Hyprland 0.55.4
 - **Terminal:** Kitty
 - **Shell:** Zsh
+- **Wallpaper daemon:** [awww](https://codeberg.org/LGFae/awww)
+- **Color engine:** [matugen](https://github.com/InioX/matugen)
+
+Prefer a one-command setup instead? Use the
+[MASU Hyprland Installer](https://github.com/Maty156/masu-hyprland-installer),
+which clones this repo and installs everything for you.
 
 **Contents**
 
-This repo contains configuration and helper scripts for a themed Hyprland setup.
-
 | Folder | Description |
 |--------|-------------|
-| `hypr/` | Hyprland config, animations, hyprlock, color pipeline scripts |
-| `waybar/` | Status bar configuration (pywal colors) |
-| `rofi/` | Rofi themes and palettes |
-| `swaync/` | Notification center styling and scripts |
+| `hypr/` | Hyprland config, window/layer rules (Lua), animations, hyprlock, hypridle, color-pipeline scripts |
+| `waybar/` | Status bar configuration (matugen colors) |
+| `rofi/` | App launcher, wallpaper picker, style changer, applets |
+| `matugen/` | `config.toml` and per-app color templates |
+| `swaync/` | Notification center styling, sounds, scripts |
+| `swayosd/` | Volume/brightness OSD styling |
 | `kitty/` | Kitty terminal config |
-| `matuwall/` | Wallpaper manager config and scripts |
-| `wallpapers/` | Example wallpapers used to generate palettes |
-| `waybar/themes/` | Waybar theme variants |
+| `cava/` | Audio visualizer config |
+| `htop/` | htoprc |
+| `wlogout/` | Power menu layout + styling |
+| `wallpapers/` | Wallpapers used to generate palettes |
 
 ## Quick install
 
-1. Clone into `~/.config`
+1. Clone the repo (or let the [installer](https://github.com/Maty156/masu-hyprland-installer) do this for you):
 
 ```bash
-git clone https://github.com/Maty156/.config.git ~/.config
+git clone https://github.com/Maty156/dotfile.git
+cp -r dotfile/{hypr,waybar,rofi,matugen,swaync,swayosd,kitty,cava,htop,wlogout} ~/.config/
+cp -r dotfile/wallpapers ~/wallpapers
 ```
 
 2. Install required packages (Arch example):
 
 ```bash
-sudo pacman -S hyprland hyprlock waybar rofi kitty dunst swaync wob wofi thunar grim slurp \
-  nm-applet blueman pavucontrol python-pywal
+sudo pacman -S hyprland hyprlock waybar rofi-wayland kitty swaync swayosd \
+  awww matugen cava htop xxhash wl-clipboard cliphist thunar grim slurp \
+  nm-applet pavucontrol imagemagick jq bc ttf-jetbrains-mono-nerd \
+  gtk4 libadwaita gtk-layer-shell
 ```
 
 3. Install AUR packages (examples):
 
 ```bash
-yay -S hyprpaper awww matuwall ttf-jetbrains-mono-nerd papirus-icon-theme bibata-cursor-theme
+yay -S bibata-cursor-theme wlogout
 ```
 
-4. Symlink pywal Rofi colors (optional):
+`awww` and `matugen` are both in Arch's official `extra` repo now — no AUR needed
+for either. On other distros, `cargo install matugen` and
+`cargo install --git https://codeberg.org/LGFae/awww awww` are your best bet
+until they're packaged.
+
+4. Set your first wallpaper and generate colors:
 
 ```bash
-ln -sf ~/.cache/wal/colors-rofi.rasi ~/.config/rofi/colors-rofi.rasi
+awww img ~/wallpapers/wallpaper.jpg
+~/.config/hypr/scripts/matugenMagick.sh --dark
 ```
 
-5. Generate colors from a wallpaper:
-
-```bash
-wal -i /path/to/your/wallpaper.jpg
-```
-
-6. Start Hyprland.
+5. Start Hyprland.
 
 ## Dependencies
 
-- hyprland, hyprlock, hyprpaper, awww, matuwall
-- waybar, rofi, swaync, wofi, dunst, wob
-- kitty, thunar
-- python-pywal, grim, slurp
-- nm-applet, blueman, pavucontrol
+- `hyprland`, `hyprlock`, `awww`, `matugen`
+- `waybar`, `rofi-wayland`, `swaync`, `swayosd`
+- `kitty`, `thunar`
+- `cava`, `htop`, `wlogout`
+- `grim`, `slurp`, `xxhash`, `wl-clipboard`, `cliphist`
+- `nm-applet`, `pavucontrol`, `imagemagick`, `jq`, `bc`
 - JetBrainsMono Nerd Font (recommended)
-- Papirus icon theme, Bibata cursor theme
+- Bibata cursor theme (AUR)
 
 ## Color pipeline
 
-When the wallpaper changes via `matuwall` the scripts generate colors and propagate them across the components:
+Picking a wallpaper (`SUPER+W` → `wallSelect.sh`) drives the whole chain:
 
 ```
-matuwall → awww-wrapper.sh → wallpaper-colors.sh
-                                    ↓
-                               wal -i <wallpaper>
-                                    ↓
-                     ┌─────────────┼──────────────┐
-                  waybar        rofi           swaync
-                  wofi          dunst          hyprlock
-                  wob           hyprland       SDDM
+wallSelect.sh (rofi picker)
+        │
+        ▼
+   awww sets the wallpaper
+        │
+        ▼
+   matugenMagick.sh
+        │
+        ├──▶ matugen generates the palette from the wallpaper
+        │        │
+        │        ├──▶ Waybar colors        (matugen template)
+        │        ├──▶ Rofi colors          (matugen template)
+        │        ├──▶ Kitty colors         (matugen template)
+        │        ├──▶ Hyprland border      (matugen template)
+        │        └──▶ Hyprlock colors      (matugen template)
+        │
+        ├──▶ ImageMagick regenerates rofi's cached background images
+        └──▶ swaync reloads its config + CSS
 ```
 
-`wal-watcher.sh` can also run in the background to catch wallpaper changes and reapply palettes.
+Unlike pywal, there's no `~/.cache/wal/` intermediate step — matugen writes
+each output file directly to the path defined in `matugen/config.toml`.
 
 ## Monitor
 
-Default configured for `LVDS-1` at `1366x768@60` — change settings in `hypr/hyprland.conf`.
+Default configured for `LVDS-1` at `1366x768@60` — change settings in
+`hypr/modules/monitors.conf`.
 
 ```ini
 monitor = LVDS-1, 1366x768@60, 0x0, 1
@@ -97,54 +121,50 @@ monitor = LVDS-1, 1366x768@60, 0x0, 1
 
 ## Scripts & Autostart
 
-Key helper scripts live in `hypr/scripts/` and are used by the autostart entries in `hypr/hyprland.conf`.
+Key helper scripts live in `hypr/scripts/`:
 
-- `hypr/scripts/wallpaper-colors.sh`: applies `wal -i <wallpaper>` and copies generated color files to component configs (Waybar, Wofi, Dunst, Wob, Hyprland), updates hyprlock background, and reloads affected services.
-- `hypr/scripts/wal-watcher.sh`: daemon that watches `awww` for wallpaper changes and runs the full pywal color pipeline automatically.
-- `hypr/scripts/awww-wrapper.sh`: wrapper used when setting wallpapers manually via `awww`.
-- `hypr/scripts/hyprlock_wall.sh` and `hypr/scripts/sddm-colors.sh`: helpers for lock/SDDM backgrounds.
-- `hypr/scripts/spotify-toggle.sh`: toggles the Spotify scratchpad used by the config.
+- `wallSelect.sh` — rofi-based wallpaper picker with a checksum-verified
+  ImageMagick thumbnail cache; sets the wallpaper via `awww` and hands off to
+  `matugenMagick.sh`.
+- `matugenMagick.sh` — runs `matugen`, regenerates rofi's cached background
+  images, reloads Hyprland, and reloads swaync's config/CSS.
+- `waybarSelect.sh` — waybar style picker.
+- `refresh.sh` — reloads the desktop (waybar/swaync/etc.) without a full
+  Hyprland restart.
+- `wlogout.sh` — launches the power menu.
+- `airplaneMode.sh`, `backlight.sh`, `sounds.sh`, `songdetail.sh` — misc
+  hardware/media helpers.
 
-Autostart and useful bindings (see `hypr/hyprland.conf`):
+Keybindings live in `hypr/modules/keybinds.conf` — a few highlights:
 
-- `exec-once = uwsm app -- matuwall --daemon` — starts the matuwall daemon for wallpaper selection.
-- `exec-once = bash -c "sleep 1 && wal -R -q && bash ~/.config/hypr/scripts/wal-watcher.sh"` — restores the last wal palette and starts the watcher on login.
-- `bind = $mainMod, W, exec, matuwall --toggle` — quick keybinding to open/close matuwall.
+- `bind = $mainMod, SPACE, exec, $rofiScripts/launcher` — app launcher
+- `bind = $mainMod, W, exec, $deskScripts/wallSelect.sh` — wallpaper picker
+- `bind = $mainMod, A, exec, swaync-client --open-panel` — notification panel
+- `bind = $mainMod SHIFT, M, exec, $deskScripts/wlogout.sh` — power menu
 
-You can test the pipeline manually by running:
+You can re-run the color pipeline manually at any time:
 
 ```bash
-~/.config/hypr/scripts/wallpaper-colors.sh /path/to/wallpaper.jpg
-```
-
-Or start the watcher directly for live updates:
-
-```bash
-~/.config/hypr/scripts/wal-watcher.sh &
+~/.config/hypr/scripts/matugenMagick.sh --dark
 ```
 
 ## Screenshots
 
-Screenshots of the setup are included below (in `assets/screenshots/`). Click any image to open the file. Images are shown at a reduced width for readability.
+> These screenshots predate the v3.0 matugen/rofi/swaync migration and still
+> show the old wofi/dunst look — kept here for now, will swap in updated ones.
 
-- **Desktop / Waybar:**
+<img src="assets/screenshots/screenshot-20260624-194229.png" alt="Desktop / Waybar" width="640" />
+<img src="assets/screenshots/screenshot-20260607-194538.png" alt="Notification bar" width="640" />
+<img src="assets/screenshots/screenshot-20260607-194602.png" alt="Rofi launcher" width="640" />
+<img src="assets/screenshots/screenshot-20260607-194614.png" alt="Wallpaper picker" width="640" />
 
-  <img src="assets/screenshots/screenshot-20260624-194229.png" alt="Notification bar" width="640" />
+## Credits
 
-- **Notification bar:**
-
-  <img src="assets/screenshots/screenshot-20260607-194538.png" alt="Rofi launcher" width="640" />
-
-- **Rofi launcher:**
-
-  <img src="assets/screenshots/screenshot-20260607-194602.png" alt="Matuwall wallpaper chooser" width="640" />
-
-- **Wallpaper changer / picker:**
-
-  <img src="assets/screenshots/screenshot-20260607-194614.png" alt="Wallpaper changer" width="640" />
-
+This rice builds on top of several community Hyprland projects. Full credit
+to the original authors — see [`CREDITS.md`](CREDITS.md) for the complete
+list of sources and what's original MASU work on top.
 
 ## Contributing
 
-If you want to contribute adjustments or fixes, open a PR. Configs are opinionated; please test changes locally before proposing.
-
+If you want to contribute adjustments or fixes, open a PR. Configs are
+opinionated; please test changes locally before proposing.
