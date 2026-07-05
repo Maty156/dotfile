@@ -1,0 +1,12 @@
+# Matugen configuration
+[source]
+# Automatically pick the most prominent color
+mode = "auto"
+# Or use a specific color
+# color = "#4285f4"
+
+[palette]
+# Number of colors to generate
+count = 16
+# Color harmony type: "monochromatic", "complementary", "triadic", "analogous"
+harmony = "monochromatic"

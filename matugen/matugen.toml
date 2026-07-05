@@ -1,0 +1,38 @@
+#  ┳┳┓┏┓┏┳┓┳┳┏┓┏┓┳┓  ┏┓┏┓┳┓┏┓┳┏┓
+#  ┃┃┃┣┫ ┃ ┃┃┃┓┣ ┃┃━━┃ ┃┃┃┃┣ ┃┃┃┓
+#  ┛ ┗┛┗ ┻ ┗┛┗┛┗┛┛┗  ┗┛┗┛┛┗┻ ┻┗┛┗
+
+[config.wallpaper]
+command = "awww"
+arguments = ["img", "--transition-type", "center"]
+set = false
+# matugenMagick.sh already sets the wallpaper via awww before calling matugen,
+# so we don't need matugen to also set it here. Flip `set` to true if you'd
+# rather let matugen own wallpaper-setting itself.
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland-colors.conf"
+output_path = "~/.config/hypr/matugen/matugen-hyprland.conf"
+
+[templates.hyprlock]
+input_path = "~/.config/matugen/templates/hyprlock-colors.conf"
+output_path = "~/.config/hypr/hyprlock/matugen/matugen-hyprlock.conf"
+
+[templates.waybar]
+input_path = "~/.config/matugen/templates/waybar-colors.css"
+output_path = "~/.config/waybar/matugen/matugen-waybar.css"
+post_hook = "killall -q -SIGUSR2 waybar"
+
+[templates.rofi]
+input_path = "~/.config/matugen/templates/rofi-colors.rasi"
+output_path = "~/.config/rofi/matugen/matugen-rofi.rasi"
+
+[templates.swaync]
+input_path = "~/.config/matugen/templates/swaync-colors.css"
+output_path = "~/.config/swaync/matugen/matugen-swaync.css"
+post_hook = "pkill -q swaync; sleep 0.3; swaync & disown"
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty-colors.conf"
+output_path = "~/.config/kitty/matugen/colors-matugen.conf"
+post_hook = "killall -q -SIGUSR1 kitty"
