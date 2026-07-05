@@ -4,7 +4,7 @@ Personal Hyprland desktop configuration with a **matugen-driven color pipeline**
 
 **Quick facts**
 
-- **Hardware:** ThinkPad E531 · 1366×768 · Intel Ivy Bridge
+- **Hardware:** ########################
 - **OS:** Arch Linux
 - **Window Manager:** Hyprland 0.55.4
 - **Terminal:** Kitty
