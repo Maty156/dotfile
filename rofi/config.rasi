@@ -1,18 +1,1 @@
-/**
- * Rofi config — MASU setup
- * ~/.config/rofi/config.rasi
- */
-
-configuration {
-    modi:           "drun,run";
-    show-icons:     true;
-    icon-theme:     "Papirus-Dark";
-    drun-display-format: "{name}";
-    display-drun:   "󰣇  Apps";
-    display-run:    "  Run";
-    terminal:       "kitty";
-    ssh-command:    "{terminal} -e {ssh-client} {host}";
-    kb-cancel:      "Escape,Super+space";
-}
-
-@theme "~/.config/rofi/masu.rasi"
+@import "~/.config/rofi/matugen/matugen-rofi.rasi"
