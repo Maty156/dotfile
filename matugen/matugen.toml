@@ -36,3 +36,12 @@ post_hook = "pkill -q swaync; sleep 0.3; swaync & disown"
 input_path = "~/.config/matugen/templates/kitty-colors.conf"
 output_path = "~/.config/kitty/matugen/colors-matugen.conf"
 post_hook = "killall -q -SIGUSR1 kitty"
+
+[templates.gtk3]
+input_path = "~/.config/matugen/templates/matugen-gtk.css"
+output_path = "~/.config/gtk-3.0/colors.css"
+post_hook = "gsettings set org.gnome.desktop.interface color-scheme prefer-{{mode}}; gsettings set org.gnome.desktop.interface gtk-theme \"\"; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}"
+
+[templates.gtk4]
+input_path = "~/.config/matugen/templates/matugen-gtk.css"
+output_path = "~/.config/gtk-4.0/colors.css"
