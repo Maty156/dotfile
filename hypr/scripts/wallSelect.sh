@@ -142,3 +142,4 @@ awww query || awww-daemon --format xrgb
 sleep 0.5
 [[ -n "$wall_selection" ]] && "$scriptsDir/matugenMagick.sh" --dark
 
+sed -i 's|^\$image = .*|$image = $HOME/.local/share/bg|' ~/.config/hypr/hyprlock.conf
