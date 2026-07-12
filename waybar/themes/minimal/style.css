@@ -15,15 +15,19 @@ window#waybar {
     color: @on_surface;
 }
 
-/* ── Pills: solid, themed with the wallpaper's palette ── */
-.modules-left,
-.modules-center,
-.modules-right {
+/* ── Pill: only the center group, matching your original single-bar layout ── */
+.modules-center {
     background: @surface_container;
     border: 1px solid @outline_variant;
     border-radius: 999px;
-    margin: 6px 8px 0 8px;
+    margin: 6px 0 0 0;
     padding: 3px 4px;
+}
+
+.modules-left,
+.modules-right {
+    background: transparent;
+    border: none;
 }
 
 /* ── Reset all modules ── */
