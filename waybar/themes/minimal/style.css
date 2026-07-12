@@ -12,21 +12,18 @@
 
 window#waybar {
     background: transparent;
-    color: @text;
+    color: @on_surface;
 }
 
-/* ── Pill ── */
-.modules-center {
-    background: @base;
-    border: 1px solid alpha(@surface1, 0.30);
-    border-radius: 999px;
-    margin: 6px 0 0 0;
-    padding: 3px 4px;
-}
-
+/* ── Pills: solid, themed with the wallpaper's palette ── */
 .modules-left,
+.modules-center,
 .modules-right {
-    background: transparent;
+    background: @surface_container;
+    border: 1px solid @outline_variant;
+    border-radius: 999px;
+    margin: 6px 8px 0 8px;
+    padding: 3px 4px;
 }
 
 /* ── Reset all modules ── */
@@ -47,14 +44,12 @@ padding: 0;
 margin: 0;
 }
 
-/* ── Dividers ── */
-#workspaces,
-#clock,
+/* ── Dividers (inside the right pill) ── */
 #network,
 #cpu,
 #pulseaudio,
 #custom-swaync {
-border-left: 1px solid alpha(@surface1, 0.18);
+border-left: 1px solid @outline_variant;
 margin-left: 3px;
 padding-left: 3px;
 }
@@ -62,12 +57,12 @@ padding-left: 3px;
 /* ── Arch logo ── */
 #custom-arch {
 font-size: 14px;
-color: alpha(@sapphire, 0.85);
+color: @primary;
 padding: 1px 9px 1px 7px;
 }
 
 #custom-arch:hover {
-color: @sapphire;
+color: @primary_fixed;
 }
 
 /* ── Workspaces ── */
@@ -77,7 +72,7 @@ padding: 0 3px;
 
 #workspaces button {
 background: transparent;
-color: alpha(@surface1, 0.60);
+color: @outline;
 border-radius: 999px;
 padding: 1px 6px;
 margin: 0;
@@ -88,110 +83,110 @@ font-size: 11px;
 }
 
 #workspaces button:hover {
-background: alpha(@surface1, 0.10);
-color: alpha(@text, 0.85);
+background: @surface_container_high;
+color: @on_surface;
 }
 
 #workspaces button.active {
-background: alpha(@sky, 0.14);
-color: @sky;
-border: 1px solid alpha(@sky, 0.22);
+background: @primary_container;
+color: @on_primary_container;
+border: 1px solid @primary;
 }
 
 #workspaces button.urgent {
-color: alpha(@red, 0.90);
-background: alpha(@red, 0.10);
+color: @on_error_container;
+background: @error_container;
 }
 
 /* ── Clock ── */
 #clock {
-color: @text;
+color: @on_surface;
 font-weight: 600;
 letter-spacing: 0.5px;
-padding: 1px 10px;
+padding: 1px 14px;
 }
 
 /* ── Network ── */
 #network {
 font-size: 14px;
-color: alpha(@green, 0.90);
+color: @primary;
 padding: 1px 7px;
 }
 
 #network.disconnected {
-color: alpha(@red, 0.75);
+color: @error;
 }
 
 /* ── Bluetooth ── */
 #bluetooth {
 font-size: 14px;
-color: alpha(@blue, 0.75);
+color: @secondary;
 padding: 1px 7px;
 }
 
 #bluetooth.disabled {
-color: alpha(@surface1, 0.35);
+color: @outline;
 }
 
 #bluetooth.connected {
-color: @blue;
+color: @primary;
 }
 
 /* ── CPU ── */
 #cpu {
-color: alpha(@subtext, 0.70);
+color: @on_surface_variant;
 padding: 1px 8px;
 }
 
 /* ── Memory ── */
 #memory {
-color: alpha(@subtext, 0.70);
+color: @on_surface_variant;
 padding: 1px 8px;
 }
 
 /* ── Audio ── */
 #pulseaudio {
-color: alpha(@yellow, 0.80);
+color: @tertiary;
 padding: 1px 8px;
 }
 
 #pulseaudio.muted {
-color: alpha(@surface1, 0.50);
+color: @outline;
 }
 
 /* ── Battery ── */
 #battery {
-color: alpha(@green, 0.85);
+color: @tertiary;
 padding: 1px 8px;
 }
 
 #battery.charging {
-color: @green;
+color: @primary;
 }
 
 #battery.warning:not(.charging) {
-color: alpha(@yellow, 0.95);
+color: @tertiary_fixed_dim;
 }
 
 #battery.critical:not(.charging) {
-color: @red;
-background: alpha(@red, 0.12);
+color: @on_error_container;
+background: @error_container;
 border-radius: 999px;
 }
 
 /* ── SwayNC ── */
 #custom-swaync {
 font-size: 14px;
-color: alpha(@subtext, 0.60);
+color: @on_surface_variant;
 padding: 1px 9px 1px 7px;
 }
 
 #custom-swaync.notification {
-color: @sky;
+color: @primary;
 }
 
 #custom-swaync.dnd {
-color: alpha(@surface1, 0.40);
+color: @outline;
 }
 
 /* ── Hover ── */
@@ -203,18 +198,18 @@ color: alpha(@surface1, 0.40);
 #bluetooth:hover,
 #clock:hover,
 #custom-swaync:hover {
-color: @text;
+color: @on_surface;
 }
 
 /* ── Tooltips ── */
 tooltip {
-    background: @base;
-    border: 1px solid alpha(@surface1, 0.25);
+    background: @surface_container;
+    border: 1px solid @outline_variant;
     border-radius: 12px;
     padding: 6px 12px;
-    color: @text;
+    color: @on_surface;
 }
 
 tooltip label {
-    color: @text;
+    color: @on_surface;
 }
