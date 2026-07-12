@@ -48,7 +48,7 @@
 		"on-scroll-down": "hyprctl dispatch workspace e+1",
 		"on-scroll-up": "hyprctl dispatch workspace e-1",
 		"persistent-workspaces": {
-			"*": [1, 2, 3]
+			"*": [1, 2, 3, 4]
 		}
 	},
 
@@ -256,17 +256,9 @@
 	/*------------Clock------------------*/
 	"clock": {
 		"format": "󰥔 {:%I:%M:%S %p} ",
-		"interval": 1,   
-		"tooltip-format": "<tt>{calendar}</tt>",
-		"calendar": {
-			"format": {
-				"today": "<span color='#fAfBfC'><b>{}</b></span>"
-			}
-		},
-		"actions": {
-			"on-click-right": "shift_down",
-			"on-click": "shift_up"
-		}
+		"format-alt": "{:%A, %B %d}",
+    		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+  		"interval": 1
 	}
 
  }
