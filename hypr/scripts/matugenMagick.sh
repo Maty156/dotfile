@@ -51,9 +51,10 @@ if [ -f ~/.config/hypr/matugen/matugen-hyprland.conf ]; then
     echo "Hyprland reloaded."
 fi
 
-# GTK theme
-gsettings set org.gnome.desktop.interface gtk-theme ""
-gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3
+# GTK theme is already handled mode-aware by the [templates.gtk3] post_hook
+# in matugen.toml (sets color-scheme + adw-gtk3-{{mode}}). Don't touch it
+# here — a hardcoded override here was previously stomping it back to the
+# light variant on every run, regardless of --dark/--light.
 
 # ImageMagick processing — regenerate rofi's cached wallpaper images
 IMG_DIR="$HOME/.config/rofi/images"
