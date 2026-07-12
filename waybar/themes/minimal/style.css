@@ -1,0 +1,219 @@
+@import "matugen/matugen-waybar.css";
+
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+    font-weight: 500;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    transition: all 0.2s ease;
+}
+
+window#waybar {
+    background: transparent;
+    color: @on_surface;
+}
+
+/* ── Pill: only the center group, matching your original single-bar layout ── */
+.modules-center {
+    background: @surface_container;
+    border: 1px solid @outline_variant;
+    border-radius: 999px;
+    margin: 6px 0 0 0;
+    padding: 3px 4px;
+}
+
+.modules-left,
+.modules-right {
+    background: transparent;
+    border: none;
+}
+
+/* ── Reset all modules ── */
+#custom-arch,
+#workspaces,
+#clock,
+#network,
+#bluetooth,
+#cpu,
+#memory,
+#pulseaudio,
+#battery,
+#custom-swaync {
+background: transparent;
+border: none;
+border-radius: 0;
+padding: 0;
+margin: 0;
+}
+
+/* ── Dividers (inside the right pill) ── */
+#network,
+#cpu,
+#pulseaudio,
+#custom-swaync {
+border-left: 1px solid @outline_variant;
+margin-left: 3px;
+padding-left: 3px;
+}
+
+/* ── Arch logo ── */
+#custom-arch {
+font-size: 14px;
+color: @primary;
+padding: 1px 9px 1px 7px;
+}
+
+#custom-arch:hover {
+color: @primary_fixed;
+}
+
+/* ── Workspaces ── */
+#workspaces {
+padding: 0 3px;
+}
+
+#workspaces button {
+background: transparent;
+color: @outline;
+border-radius: 999px;
+padding: 1px 6px;
+margin: 0;
+min-width: 0;
+box-shadow: none;
+border: none;
+font-size: 11px;
+}
+
+#workspaces button:hover {
+background: @surface_container_high;
+color: @on_surface;
+}
+
+#workspaces button.active {
+background: @primary_container;
+color: @on_primary_container;
+border: 1px solid @primary;
+}
+
+#workspaces button.urgent {
+color: @on_error_container;
+background: @error_container;
+}
+
+/* ── Clock ── */
+#clock {
+color: @on_surface;
+font-weight: 600;
+letter-spacing: 0.5px;
+padding: 1px 14px;
+}
+
+/* ── Network ── */
+#network {
+font-size: 14px;
+color: @primary;
+padding: 1px 7px;
+}
+
+#network.disconnected {
+color: @error;
+}
+
+/* ── Bluetooth ── */
+#bluetooth {
+font-size: 14px;
+color: @secondary;
+padding: 1px 7px;
+}
+
+#bluetooth.disabled {
+color: @outline;
+}
+
+#bluetooth.connected {
+color: @primary;
+}
+
+/* ── CPU ── */
+#cpu {
+color: @on_surface_variant;
+padding: 1px 8px;
+}
+
+/* ── Memory ── */
+#memory {
+color: @on_surface_variant;
+padding: 1px 8px;
+}
+
+/* ── Audio ── */
+#pulseaudio {
+color: @tertiary;
+padding: 1px 8px;
+}
+
+#pulseaudio.muted {
+color: @outline;
+}
+
+/* ── Battery ── */
+#battery {
+color: @tertiary;
+padding: 1px 8px;
+}
+
+#battery.charging {
+color: @primary;
+}
+
+#battery.warning:not(.charging) {
+color: @tertiary_fixed_dim;
+}
+
+#battery.critical:not(.charging) {
+color: @on_error_container;
+background: @error_container;
+border-radius: 999px;
+}
+
+/* ── SwayNC ── */
+#custom-swaync {
+font-size: 14px;
+color: @on_surface_variant;
+padding: 1px 9px 1px 7px;
+}
+
+#custom-swaync.notification {
+color: @primary;
+}
+
+#custom-swaync.dnd {
+color: @outline;
+}
+
+/* ── Hover ── */
+#cpu:hover,
+#memory:hover,
+#pulseaudio:hover,
+#battery:hover,
+#network:hover,
+#bluetooth:hover,
+#clock:hover,
+#custom-swaync:hover {
+color: @on_surface;
+}
+
+/* ── Tooltips ── */
+tooltip {
+    background: @surface_container;
+    border: 1px solid @outline_variant;
+    border-radius: 12px;
+    padding: 6px 12px;
+    color: @on_surface;
+}
+
+tooltip label {
+    color: @on_surface;
+}
