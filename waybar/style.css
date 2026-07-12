@@ -33,7 +33,7 @@
 
 /*----------Waybar Window------------*/
 window#waybar {
-    background: @surface-alpha;
+    background: none;
 }
 
 /*-----------Tooltip--------------*/
