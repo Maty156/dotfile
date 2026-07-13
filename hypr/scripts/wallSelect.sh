@@ -7,9 +7,6 @@
 # Thank you gh0stzk for the script 🤲 means a lot
 # Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
 # Licensed under GPL-3.0 license
-#
-# Modified by Maty (MASU) — switched wallpaper daemon from swww to the
-# `awww` fork and wired in matugenMagick.sh for the auto color-theming chain.
 
 # WallSelect - Dynamic wallpaper selector with intelligent caching system
 # Features:
@@ -141,5 +138,6 @@ awww query || awww-daemon --format xrgb
 # Run matugen script
 sleep 0.5
 [[ -n "$wall_selection" ]] && "$scriptsDir/matugenMagick.sh" --dark
+
 
 sed -i 's|^\$image = .*|$image = $HOME/.local/share/bg|' ~/.config/hypr/hyprlock.conf
