@@ -4,82 +4,100 @@
  *    ┗┻┛┗┛┗┛┗┛┗┛┗┛ ┻ 
  *                    
  */
-
-
 /* wallust-wlogout */
-
-/* Importing wllust colors */
+/* Importing wallust colors */
 @import '../../.config/waybar/matugen/matugen-waybar.css';
 
+* {
+    font-family: "GeistMono Nerd Font Propo";
+}
 
 window {
-    font-family: GeistMono Nerd Font Propo;
-    font-size: 16pt;
-    color:  @foreground; /* text */
-    background-color: @surface-alpha;
-
-} 
+    font-size: 13pt;
+    color: @foreground;
+    background-color: alpha(@surface-alpha, 0.92);
+    background-image: linear-gradient(180deg,
+        alpha(@primary, 0.06) 0%,
+        transparent 30%,
+        transparent 70%,
+        alpha(@primary, 0.06) 100%);
+}
 
 button {
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: 20%;
-    background-color: transparent;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s ease-in;
-    box-shadow: 0 0 10px 2px transparent;
-    border-radius: 36px;
-    margin: 10px;
+    background-position: center 28%;
+    background-size: 26%;
+    background-color: alpha(@foreground, 0.04);
+    border: 1.5px solid alpha(@foreground, 0.10);
+    border-radius: 28px;
+    margin: 22px;
+    min-width: 210px;
+    min-height: 210px;
+    padding-top: 130px;
+    transition: all 0.35s cubic-bezier(.55, 0.0, .28, 1.2);
+    animation: pulse_glow 6s ease-in-out infinite;
 }
 
-
 button:focus {
-    box-shadow: none;
     outline-style: none;
-    background-size : 20%;
+    box-shadow: none;
 }
 
 button:hover {
-    background-size: 50%;
+    background-size: 40%;
+    background-color: alpha(@primary, 0.18);
+    border: 1.5px solid alpha(@primary, 0.65);
+    box-shadow: 0 0 34px 6px alpha(@primary, 0.40);
     outline-style: none;
-    box-shadow: 0 0 10px 3px rgba(0,0,0,.4);
-    background-color: @primary;
-    color: transparent;
-    transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;
+    color: @foreground;
+    animation: none;
+}
+
+label {
+    font-size: 12.5pt;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    opacity: 0.85;
+    transition: all 0.35s ease-in-out;
+}
+
+button:hover label {
+    opacity: 1;
+}
+
+@keyframes pulse_glow {
+    0%   { box-shadow: 0 0 0 0 alpha(@primary, 0.0); }
+    50%  { box-shadow: 0 0 20px 2px alpha(@primary, 0.18); }
+    100% { box-shadow: 0 0 0 0 alpha(@primary, 0.0); }
 }
 
 #shutdown {
     background-image: image(url("./icons/power.png"));
 }
 #shutdown:hover {
-  background-image: image(url("./icons/power-hover.png"));
+    background-image: image(url("./icons/power-hover.png"));
 }
-
 #logout {
     background-image: image(url("./icons/logout.png"));
-
 }
 #logout:hover {
-  background-image: image(url("./icons/logout-hover.png"));
+    background-image: image(url("./icons/logout-hover.png"));
 }
-
 #reboot {
     background-image: image(url("./icons/restart.png"));
 }
 #reboot:hover {
-  background-image: image(url("./icons/restart-hover.png"));
+    background-image: image(url("./icons/restart-hover.png"));
 }
-
 #lock {
     background-image: image(url("./icons/lock.png"));
 }
 #lock:hover {
-  background-image: image(url("./icons/lock-hover.png"));
+    background-image: image(url("./icons/lock-hover.png"));
 }
-
 #sleep {
     background-image: image(url("./icons/hibernate.png"));
 }
 #sleep:hover {
-  background-image: image(url("./icons/hibernate-hover.png"));
+    background-image: image(url("./icons/hibernate-hover.png"));
 }
